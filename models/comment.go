@@ -2,6 +2,8 @@ package models
 
 import (
 	"time"
+
+	"github.com/astaxie/beego/orm"
 )
 
 type Comment struct {
@@ -17,4 +19,24 @@ type Comment struct {
 
 func (c *Comment) TableName() string {
 	return "t_comments"
+}
+
+type CommentDBO struct{}
+
+func (d *CommentDBO) AddComment(c *Comment) error {
+	O = orm.NewOrm()
+	id, err := O.Insert(c)
+	if err != nil {
+		return err
+	}
+	L.Printf("add comments success:%v\n", id)
+	return nil
+}
+
+func (d *CommentDBO) GetComment() (*Comment, error) {
+	O = orm.NewOrm()
+	c := &Comment{Id: 2}
+	O.Read(c)
+
+	return c, nil
 }
