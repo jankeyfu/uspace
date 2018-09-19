@@ -16,4 +16,7 @@ func init() {
 	beego.Router("/holiday/get", &controllers.HolidayController{}, "*:GetAllHoliday")
 
 	beego.Router("/comment/add", &controllers.CommentController{}, "*:AddComment")
+	beego.Router("/comment/get/:id", &controllers.CommentController{}, "*:GetComment")
+	beego.Router("/comment/list", &controllers.CommentController{}, "*:ListComments")
+
 }

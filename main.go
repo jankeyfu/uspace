@@ -6,12 +6,11 @@ import (
 	_ "uspace/routers"
 
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
 )
 
 func init() {
-	orm.RegisterDataBase("default", "mysql", "root:9999@/uspace?charset=utf8")
+	//orm.RegisterDataBase("default", "mysql", "root:9999@/uspace?charset=utf8")
 }
 
 func main() {

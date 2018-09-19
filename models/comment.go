@@ -23,9 +23,9 @@ func (c *Comment) TableName() string {
 
 type CommentDBO struct{}
 
-func (d *CommentDBO) AddComment(c *Comment) error {
+func (d *CommentDBO) AddComment(c Comment) error {
 	O = orm.NewOrm()
-	id, err := O.Insert(c)
+	id, err := O.Insert(&c)
 	if err != nil {
 		return err
 	}
@@ -33,10 +33,19 @@ func (d *CommentDBO) AddComment(c *Comment) error {
 	return nil
 }
 
-func (d *CommentDBO) GetComment() (*Comment, error) {
+func (d *CommentDBO) GetCommentById(id int64) (Comment, error) {
 	O = orm.NewOrm()
-	c := &Comment{Id: 2}
-	O.Read(c)
+	c := Comment{Id: id, Deleted: 0}
+	err := O.QueryTable(c.TableName()).Filter("id", id).Filter("deleted", 0).One(&c)
+	if err != nil {
+		L.Println("查询数据异常")
+	}
+	return c, err
+}
 
-	return c, nil
+func (d *CommentDBO) ListComments() ([]Comment, error) {
+	O = orm.NewOrm()
+	var cs []Comment
+	_, err := O.QueryTable("t_comments").Filter("deleted", 0).All(&cs)
+	return cs, err
 }

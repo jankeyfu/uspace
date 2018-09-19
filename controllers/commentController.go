@@ -2,6 +2,8 @@ package controllers
 
 import (
 	"fmt"
+
+	"strconv"
 	"uspace/models"
 
 	"github.com/astaxie/beego"
@@ -26,12 +28,39 @@ func (this *CommentController) AddComment() {
 		this.Ctx.WriteString("add comment failed")
 		return
 	}
-	err := dbo.AddComment(comment)
+	err := dbo.AddComment(*comment)
 	if err != nil {
 		fmt.Println(err.Error())
-		this.Ctx.WriteString(err.Error())
+		this.Ctx.WriteString(fialedRes("400", err.Error()))
 		return
 	}
 	fmt.Printf("%+v\n", comment)
-	this.Ctx.WriteString("add comment success")
+	ret := map[string]string{
+		"status": "true",
+	}
+	this.Ctx.WriteString(successRes(ret))
+}
+
+func (this *CommentController) GetComment() {
+	id, err := strconv.Atoi(this.Ctx.Input.Param(":id"))
+	if err != nil {
+		this.Ctx.WriteString("请求参数错误")
+	}
+
+	comment, err := dbo.GetCommentById(int64(id))
+	if err != nil {
+		this.Ctx.WriteString(err.Error())
+		return
+	}
+	this.Ctx.WriteString(fmt.Sprintf("%v", comment))
+
+}
+
+func (this *CommentController) ListComments() {
+	comments, err := dbo.ListComments()
+	if err != nil {
+		this.Ctx.WriteString(err.Error())
+		return
+	}
+	this.Ctx.WriteString(fmt.Sprintf("%v", comments))
 }

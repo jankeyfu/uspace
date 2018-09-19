@@ -19,11 +19,12 @@ var (
 )
 
 func Init() {
+	orm.Debug = true
 	error := orm.RegisterDriver("mysql", orm.DRMySQL)
 	if error != nil {
 		log.Fatal(error.Error())
 	}
-	//error = orm.RegisterDataBase("default", "mysql", "root:9999@/uspace?charset=utf8", maxIdle, maxConn)
+	error = orm.RegisterDataBase("default", "mysql", "root:9999@/uspace?charset=utf8", maxIdle, maxConn)
 	if error != nil {
 		log.Fatal(error.Error())
 	}
