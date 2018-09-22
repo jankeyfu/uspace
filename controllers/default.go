@@ -9,5 +9,7 @@ type MainController struct {
 }
 
 func (c *MainController) Get() {
+	c.Data["tmp"] = "template  \"header.html\""
+	c.Data["tplName"] = "header.html"
 	c.TplName = "index.html"
 }

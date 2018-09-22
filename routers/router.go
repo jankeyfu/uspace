@@ -17,6 +17,6 @@ func init() {
 
 	beego.Router("/comment/add", &controllers.CommentController{}, "*:AddComment")
 	beego.Router("/comment/get/:id", &controllers.CommentController{}, "*:GetComment")
-	beego.Router("/comment/list", &controllers.CommentController{}, "*:ListComments")
+	beego.Router("/comment", &controllers.CommentController{}, "*:ListComments")
 
 }

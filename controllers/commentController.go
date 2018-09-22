@@ -14,7 +14,7 @@ type CommentController struct {
 }
 
 func (c *CommentController) Get() {
-	c.TplName = "index.html"
+	c.TplName = "comment/list_comments.html"
 }
 
 var (
@@ -62,5 +62,7 @@ func (this *CommentController) ListComments() {
 		this.Ctx.WriteString(err.Error())
 		return
 	}
-	this.Ctx.WriteString(fmt.Sprintf("%v", comments))
+	this.Data["comments"] = comments
+	this.TplName = "comment/list_comments.html"
+	// this.Ctx.WriteString(fmt.Sprintf("%v", comments))
 }

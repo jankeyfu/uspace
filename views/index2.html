@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="../static/css/default.css">
+    <script src="../static/js/holiday/"></script>
+</head>
+
+<body>
+    <h1>甜蜜之旅</h1>
+    <div id="app">
+        <el-container>
+            <el-header>
+                {{ template "header.html" }}
+            </el-header>
+            <el-container>
+                <el-aside width="200px">LAside</el-aside>
+                <el-main>
+                    {{ .tmp }}
+                </el-main>
+            </el-container>
+            <el-footer>footer</el-footer>
+        </el-container>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return { visible: false }
+        }
+    })
+</script>
+
+</html>
